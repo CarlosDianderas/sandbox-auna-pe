@@ -1,0 +1,44 @@
+{
+  "name" : "dl-dummy-gluejob",
+  "jobMode" : "SCRIPT",
+  "description" : "Job ETL - CLOUD BI",
+  "role" : "arn:aws:iam::138849472586:role/AWSGlueServiceRoleS3FullAccess",
+  "executionProperty" : {
+    "maxConcurrentRuns" : 5
+  },
+  "command" : {
+    "name" : "glueetl",
+    "scriptLocation" : "s3://datalake.bi.artifacts.138849472586/bin/scripts/dummy.py",
+    "pythonVersion" : "3"
+  },
+  "defaultArguments" : {
+    "--enable-glue-datacatalog" : "true",
+    "--job-bookmark-option" : "job-bookmark-disable",
+    "--datalake-formats" : "iceberg",
+    "--TempDir" : "s3://aws-glue-assets-138849472586-us-east-1/temporary/",
+    "--environment" : "sbx",
+    "--enable-metrics" : "true",
+    "--extra-py-files" : "s3://datalake.bi.artifacts.138849472586/bin/modules/utils.zip,s3://datalake.bi.artifacts.138849472586/bin/modules/utils_aws.zip",
+    "--enable-job-insights" : "true",
+    "--process_date" : "YYYYMM",
+    "--full_load" : "false",
+    "--enable-continuous-cloudwatch-log" : "true",
+    "--appname" : "dl-dummy-gluejob",
+    "--job-language" : "python",
+    "--process_type" : "regular"
+  },
+  "maxRetries" : 0,
+  "allocatedCapacity" : 5,
+  "timeout" : 2880,
+  "maxCapacity" : 5.0,
+  "glueVersion" : "4.0",
+  "numberOfWorkers" : 5,
+  "workerType" : "G.1X",
+  "executionClass" : "FLEX",
+  "sourceControlDetails" : {
+    "provider" : "GITHUB",
+    "repository" : "sandbox-auna-pe",
+    "branch" : "main",
+    "folder" : "dl-dummy-gluejob"
+  }
+}
